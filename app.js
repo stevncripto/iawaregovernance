@@ -1,4 +1,4 @@
-const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // Reemplaza por tu dirección real si cambió
+const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // ← Asegúrate que esta sea tu dirección real
 
 (async () => {
   const abi = await fetch("abi.json").then(res => res.json());
@@ -48,14 +48,24 @@ const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // Reempla
   document.getElementById("newProposalBtn").onclick = async () => {
     const desc = prompt("Ingresa la descripción de tu propuesta:");
     if (!desc) return;
-    await contract.createProposal(desc);
-    await sendDiscordNotification(desc);
-    await loadProposals();
+    try {
+      await contract.createProposal(desc);
+      await sendDiscordNotification(desc);
+      await loadProposals();
+    } catch (error) {
+      console.error("Error al crear la propuesta:", error);
+      alert("Hubo un problema al enviar la propuesta. Verifica conexión y red Sepolia.");
+    }
   };
 
   window.vote = async (id) => {
-    await contract.vote(id);
-    await loadProposals();
+    try {
+      await contract.vote(id);
+      await loadProposals();
+    } catch (error) {
+      console.error("Error al votar:", error);
+      alert("No se pudo votar. Verifica tu cuenta y red.");
+    }
   };
 
   await loadProposals();
