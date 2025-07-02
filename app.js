@@ -1,4 +1,4 @@
-const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // ← Asegúrate que esta sea tu dirección real
+const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138";
 
 (async () => {
   const abi = await fetch("abi.json").then(res => res.json());
@@ -17,7 +17,7 @@ const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // ← Ase
   }
 
   if (!window.ethereum) {
-    alert("Instala MetaMask para usar esta DApp");
+    alert("⚠️ MetaMask no está instalado");
     return;
   }
 
@@ -45,7 +45,7 @@ const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // ← Ase
     }
   }
 
-  document.getElementById("newProposalBtn").onclick = async () => {
+  document.getElementById("newProposalBtn").addEventListener("click", async () => {
     const desc = prompt("Ingresa la descripción de tu propuesta:");
     if (!desc) return;
     try {
@@ -53,10 +53,10 @@ const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // ← Ase
       await sendDiscordNotification(desc);
       await loadProposals();
     } catch (error) {
-      console.error("Error al crear la propuesta:", error);
-      alert("Hubo un problema al enviar la propuesta. Verifica conexión y red Sepolia.");
+      console.error("Error al crear propuesta:", error);
+      alert("❌ No se pudo enviar la propuesta.");
     }
-  };
+  });
 
   window.vote = async (id) => {
     try {
@@ -64,7 +64,7 @@ const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // ← Ase
       await loadProposals();
     } catch (error) {
       console.error("Error al votar:", error);
-      alert("No se pudo votar. Verifica tu cuenta y red.");
+      alert("❌ Error al votar.");
     }
   };
 
