@@ -15,20 +15,32 @@ const contractAddress = '0xd9145CCE52D386f254917e481eB44e9943F39138';
 
   async function loadProposals() {
     const count = await contract.proposalCount();
-    const list = document.getElementById('proposalList');
-    list.innerHTML = '';
+    const container = document.getElementById('proposalCards');
+    container.innerHTML = '';
+
     for (let i = 1; i <= count; i++) {
       const p = await contract.proposals(i);
-      const li = document.createElement('li');
-      li.textContent = `#${i}: ${p.description} — Votes: ${p.voteCount}`;
-      list.appendChild(li);
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>#${i}</h3>
+        <p>${p.description}</p>
+        <p><strong>Votos:</strong> ${p.voteCount}</p>
+        <button onclick="vote(${i})">Votar</button>
+      `;
+      container.appendChild(card);
     }
   }
 
   document.getElementById('newProposalBtn').onclick = async () => {
-    const desc = prompt('Descripción de la propuesta:');
+    const desc = prompt('Ingresa la descripción de tu propuesta:');
     if (!desc) return;
     await contract.createProposal(desc);
+    await loadProposals();
+  };
+
+  window.vote = async (id) => {
+    await contract.vote(id);
     await loadProposals();
   };
 
