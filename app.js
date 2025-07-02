@@ -2,9 +2,20 @@ const contractAddress = '0xd9145CCE52D386f254917e481eB44e9943F39138';
 
 (async () => {
   const abi = await fetch('abi.json').then(res => res.json());
+  const discordWebhookURL = "https://discord.com/api/webhooks/1390061176007954482/-fNlEcLk63RHIcL2_qVjK7bUOO7YvCEQx2cVZ0T_k3X5P7Iv_c2CrOoaTTVjC3UpSuqL"; 
 
   if (!window.ethereum) {
-    alert('Instala MetaMask para usar esta DApp');
+    alert('Instala MetaMask para usar esta DApp');async function sendDiscordNotification(description) {
+  await fetch(discordWebhookURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      content: `🧠 Nueva propuesta en IAware:\n**${description}**\n🔗 [Vótala aquí](https://stevncripto.github.io/iawaregovernance/)`,
+      username: "IAware DAO Bot",
+      avatar_url: "https://stevncripto.github.io/iawaregovernance/iaware-logo.png"
+    })
+  });
+}
     return;
   }
 
