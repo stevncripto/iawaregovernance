@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IAware Governance</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IAware DAO Governance</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
- <header>
-  <img src="iaware-logo.png" alt="IAware Logo" class="logo"/>
-  <h1>IAware DAO Governance</h1>
-</header>
+  <header>
+    <img src="iaware-logo.png" alt="IAware Logo" class="logo" />
+    <h1>IAware DAO Governance</h1>
+  </header>
+
   <main>
-    <section id="proposals">
-      <h2>Propuestas activas</h2>
-      <div id="proposalCards" class="cards"></div>
+    <section class="actions">
       <button id="newProposalBtn">Crear nueva propuesta</button>
     </section>
+
+    <section id="proposalCards" class="card-container">
+      <!-- Propuestas renderizadas aquí -->
+    </section>
   </main>
+
   <footer>
-    <p>Powered by IAware · Sepolia Testnet</p>
+    <p>💠 IAware DAO · Red Sepolia · Desarrollado por stevncripto</p>
   </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <script src="app.js"></script>
 </body>
